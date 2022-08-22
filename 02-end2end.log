@@ -1,0 +1,24 @@
+Class: Sneaker
+[[-11.258982  -26.847082  -16.077377  -22.744751  -21.895628   -1.9257994
+  -14.737572   10.505155   -9.711518    2.6395755]]
+[7]
+Numpy-MLP Prediction: Sneaker
+Low-level Numpy MLP Prediction: Sandal
+Low-level Numpy with CallTIR Prediction: Sneaker
+<class 'tvm.relax.vm.Executable'>
+MyModule Prediction: Sneaker
+MyModuleWithExternCall Prediction: Coat
+**************************************************
+@tvm.script.ir_module
+class Module:
+    @R.function
+    def main(x: Tensor((1, 784), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv0 = R.call_tir("env.linear", (x, meta[relay.Constant][0], meta[relay.Constant][1]), (1, 128), dtype="float32")
+            lv1 = R.call_tir("env.relu", (lv0,), (1, 128), dtype="float32")
+            out = R.call_tir("env.linear", (lv1, meta[relay.Constant][2], meta[relay.Constant][3]), (1, 10), dtype="float32")
+            R.output(out)
+        return out
+    
+MyModuleWithParams Prediction: Pullover
