@@ -1,0 +1,258 @@
+<class 'tvm.te.tensor.Tensor'>
+[128, 128] float32
+# from tvm.script import tir as T
+@T.prim_func
+def func(A: T.Buffer[(128, 128), "float32"], B: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(128, 128), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    for i0, i1, i2 in T.grid(128, 128, 128):
+        with T.block("matmul"):
+            i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+            T.reads(A[i, k], B[k, j])
+            T.writes(matmul[i, j])
+            with T.init():
+                matmul[i, j] = T.float32(0)
+            matmul[i, j] = matmul[i, j] + A[i, k] * B[k, j]
+
+# from tvm.script import tir as T
+@T.prim_func
+def func(X1: T.Buffer[10, "float32"], relu: T.Buffer[10, "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    for i0 in T.serial(10):
+        with T.block("relu"):
+            i0_1 = T.axis.spatial(10, i0)
+            T.reads(X1[i0_1])
+            T.writes(relu[i0_1])
+            relu[i0_1] = T.max(X1[i0_1], T.float32(0))
+
+# from tvm.script import tir as T
+@T.prim_func
+def func(X1: T.Buffer[(10, 20), "float32"], relu: T.Buffer[(10, 20), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    for i0, i1 in T.grid(10, 20):
+        with T.block("relu"):
+            i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+            T.reads(X1[i0_1, i1_1])
+            T.writes(relu[i0_1, i1_1])
+            relu[i0_1, i1_1] = T.max(X1[i0_1, i1_1], T.float32(0))
+
+# from tvm.script import tir as T
+@T.prim_func
+def func(A: T.Buffer[(128, 128), "float32"], B: T.Buffer[(128, 128), "float32"], relu: T.Buffer[(128, 128), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    matmul = T.alloc_buffer([128, 128], dtype="float32")
+    for i0, i1, i2 in T.grid(128, 128, 128):
+        with T.block("matmul"):
+            i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+            T.reads(A[i, k], B[k, j])
+            T.writes(matmul[i, j])
+            with T.init():
+                matmul[i, j] = T.float32(0)
+            matmul[i, j] = matmul[i, j] + A[i, k] * B[k, j]
+    for i0, i1 in T.grid(128, 128):
+        with T.block("relu"):
+            i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+            T.reads(matmul[i0_1, i1_1])
+            T.writes(relu[i0_1, i1_1])
+            relu[i0_1, i1_1] = T.max(matmul[i0_1, i1_1], T.float32(0))
+
+# from tvm.script import tir as T
+@T.prim_func
+def func(A: T.Buffer[(128, 128), "float32"], B: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(128, 128), "float32"], relu: T.Buffer[(128, 128), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    for i0, i1, i2 in T.grid(128, 128, 128):
+        with T.block("matmul"):
+            i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+            T.reads(A[i, k], B[k, j])
+            T.writes(matmul[i, j])
+            with T.init():
+                matmul[i, j] = T.float32(0)
+            matmul[i, j] = matmul[i, j] + A[i, k] * B[k, j]
+    for i0, i1 in T.grid(128, 128):
+        with T.block("relu"):
+            i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+            T.reads(matmul[i0_1, i1_1])
+            T.writes(relu[i0_1, i1_1])
+            relu[i0_1, i1_1] = T.max(matmul[i0_1, i1_1], T.float32(0))
+
+@tvm.script.ir_module
+class Module:
+    @T.prim_func
+    def te_matmul(rxplaceholder: T.Buffer[(128, 128), "float32"], rxplaceholder_1: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(128, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_matmul", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1, i2 in T.grid(128, 128, 128):
+            with T.block("matmul"):
+                i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+                T.reads(rxplaceholder[i, k], rxplaceholder_1[k, j])
+                T.writes(matmul[i, j])
+                with T.init():
+                    matmul[i, j] = T.float32(0)
+                matmul[i, j] = matmul[i, j] + rxplaceholder[i, k] * rxplaceholder_1[k, j]
+    
+    @T.prim_func
+    def te_relu(rxplaceholder: T.Buffer[(128, 128), "float32"], relu: T.Buffer[(128, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_relu", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(128, 128):
+            with T.block("relu"):
+                i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[i0_1, i1_1])
+                T.writes(relu[i0_1, i1_1])
+                relu[i0_1, i1_1] = T.max(rxplaceholder[i0_1, i1_1], T.float32(0))
+    
+    @R.function
+    def main(A: Tensor((128, 128), "float32"), B: Tensor((128, 128), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv = R.call_tir(te_matmul, (A, B), (128, 128), dtype="float32")
+            lv1 = R.call_tir(te_relu, (lv,), (128, 128), dtype="float32")
+            gv: Tensor((128, 128), "float32") = lv1
+            R.output(gv)
+        return gv
+    
+
+<class 'torch.fx.graph_module.GraphModule.__new__.<locals>.GraphModuleImpl'>
+@tvm.script.ir_module
+class Module:
+    @T.prim_func
+    def te_matmul(rxplaceholder: T.Buffer[(1, 128), "float32"], rxplaceholder_1: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_matmul", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1, i2 in T.grid(1, 128, 128):
+            with T.block("matmul"):
+                i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+                T.reads(rxplaceholder[i, k], rxplaceholder_1[k, j])
+                T.writes(matmul[i, j])
+                with T.init():
+                    matmul[i, j] = T.float32(0)
+                matmul[i, j] = matmul[i, j] + rxplaceholder[i, k] * rxplaceholder_1[k, j]
+    
+    @T.prim_func
+    def te_relu(rxplaceholder: T.Buffer[(1, 128), "float32"], relu: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_relu", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(1, 128):
+            with T.block("relu"):
+                i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[i0_1, i1_1])
+                T.writes(relu[i0_1, i1_1])
+                relu[i0_1, i1_1] = T.max(rxplaceholder[i0_1, i1_1], T.float32(0))
+    
+    @R.function
+    def main(x: Tensor((1, 128), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv = R.call_tir(te_matmul, (x, meta[relay.Constant][0]), (1, 128), dtype="float32")
+            lv1 = R.call_tir(te_relu, (lv,), (1, 128), dtype="float32")
+            gv: Tensor((1, 128), "float32") = lv1
+            R.output(gv)
+        return lv1
+    
+
+Torch Prediction: Ankle boot
+@tvm.script.ir_module
+class Module:
+    @T.prim_func
+    def add(rxplaceholder: T.Buffer[(1, 128), "float32"], rxplaceholder_1: T.Buffer[128, "float32"], T_add: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "add", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(1, 128):
+            with T.block("T_add"):
+                ax0, ax1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[ax0, ax1], rxplaceholder_1[ax1])
+                T.writes(T_add[ax0, ax1])
+                T_add[ax0, ax1] = rxplaceholder[ax0, ax1] + rxplaceholder_1[ax1]
+    
+    @T.prim_func
+    def te_relu(rxplaceholder: T.Buffer[(1, 128), "float32"], relu: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_relu", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(1, 128):
+            with T.block("relu"):
+                i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[i0_1, i1_1])
+                T.writes(relu[i0_1, i1_1])
+                relu[i0_1, i1_1] = T.max(rxplaceholder[i0_1, i1_1], T.float32(0))
+    
+    @T.prim_func
+    def dense1(rxplaceholder: T.Buffer[(1, 128), "float32"], rxplaceholder_1: T.Buffer[(10, 128), "float32"], T_matmul_NT: T.Buffer[(1, 10), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "dense1", "tir.noalias": True, "layout_free_buffers": [1]})
+        # body
+        # with T.block("root")
+        for i0, i1, i2 in T.grid(1, 10, 128):
+            with T.block("T_matmul_NT"):
+                i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+                T.reads(rxplaceholder[i, k], rxplaceholder_1[j, k])
+                T.writes(T_matmul_NT[i, j])
+                with T.init():
+                    T_matmul_NT[i, j] = T.float32(0)
+                T_matmul_NT[i, j] = T_matmul_NT[i, j] + rxplaceholder[i, k] * rxplaceholder_1[j, k]
+    
+    @T.prim_func
+    def add1(rxplaceholder: T.Buffer[(1, 10), "float32"], rxplaceholder_1: T.Buffer[10, "float32"], T_add: T.Buffer[(1, 10), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "add1", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(1, 10):
+            with T.block("T_add"):
+                ax0, ax1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[ax0, ax1], rxplaceholder_1[ax1])
+                T.writes(T_add[ax0, ax1])
+                T_add[ax0, ax1] = rxplaceholder[ax0, ax1] + rxplaceholder_1[ax1]
+    
+    @T.prim_func
+    def dense(rxplaceholder: T.Buffer[(1, 784), "float32"], rxplaceholder_1: T.Buffer[(128, 784), "float32"], T_matmul_NT: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "dense", "tir.noalias": True, "layout_free_buffers": [1]})
+        # body
+        # with T.block("root")
+        for i0, i1, i2 in T.grid(1, 128, 784):
+            with T.block("T_matmul_NT"):
+                i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+                T.reads(rxplaceholder[i, k], rxplaceholder_1[j, k])
+                T.writes(T_matmul_NT[i, j])
+                with T.init():
+                    T_matmul_NT[i, j] = T.float32(0)
+                T_matmul_NT[i, j] = T_matmul_NT[i, j] + rxplaceholder[i, k] * rxplaceholder_1[j, k]
+    
+    @R.function
+    def main(x: Tensor((1, 784), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv = R.call_tir(dense, (x, meta[relay.Constant][0]), (1, 128), dtype="float32")
+            lv1 = R.call_tir(add, (lv, meta[relay.Constant][1]), (1, 128), dtype="float32")
+            lv2 = R.call_tir(te_relu, (lv1,), (1, 128), dtype="float32")
+            lv3 = R.call_tir(dense1, (lv2, meta[relay.Constant][2]), (1, 10), dtype="float32")
+            lv4 = R.call_tir(add1, (lv3, meta[relay.Constant][3]), (1, 10), dtype="float32")
+            gv: Tensor((1, 10), "float32") = lv4
+            R.output(gv)
+        return lv4

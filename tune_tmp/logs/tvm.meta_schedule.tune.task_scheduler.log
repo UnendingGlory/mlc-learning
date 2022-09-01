@@ -1,0 +1,90 @@
+2022-08-23 05:27:19.804 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:27:19.805 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:27:19.805 INFO Working directory: ./tune_tmp
+2022-08-23 05:27:19.805 INFO Creating JSONDatabase. Workload at: ./tune_tmp/database_workload.json. Tuning records at: ./tune_tmp/database_tuning_record.json
+2022-08-23 05:27:19.808 INFO LocalBuilder: max_workers = 32
+2022-08-23 05:27:20.350 INFO LocalRunner: max_workers = 1
+2022-08-23 05:27:21.012 INFO Initializing Task #0: "main"
+2022-08-23 05:27:21.112 INFO 
+ ID | Name |    FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Terminated 
+------------------------------------------------------------------------------------------------------------
+  0 | main | 4194304 |      1 |            N/A |          N/A |                   N/A |      0 |            
+------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2022-08-23 05:27:21.112 INFO Scheduler picks Task #0: "main"
+2022-08-23 05:27:23.645 INFO Sending 5 sample(s) to builder
+2022-08-23 05:27:24.583 INFO Sending 5 sample(s) to runner
+2022-08-23 05:28:07.325 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:28:07.326 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:28:07.326 INFO Working directory: ./tune_tmp
+2022-08-23 05:28:07.326 INFO Creating JSONDatabase. Workload at: ./tune_tmp/database_workload.json. Tuning records at: ./tune_tmp/database_tuning_record.json
+2022-08-23 05:28:07.340 INFO LocalBuilder: max_workers = 32
+2022-08-23 05:28:07.910 INFO LocalRunner: max_workers = 1
+2022-08-23 05:28:08.534 INFO Initializing Task #0: "main"
+2022-08-23 05:28:08.600 INFO 
+ ID | Name |    FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Terminated 
+------------------------------------------------------------------------------------------------------------
+  0 | main | 4194304 |      1 |            N/A |          N/A |                   N/A |      0 |            
+------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2022-08-23 05:28:08.600 INFO Scheduler picks Task #0: "main"
+2022-08-23 05:28:10.780 INFO Sending 5 sample(s) to builder
+2022-08-23 05:28:11.702 INFO Sending 5 sample(s) to runner
+2022-08-23 05:29:03.019 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:29:03.019 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:29:03.019 INFO Working directory: ./tune_tmp
+2022-08-23 05:29:03.020 INFO Creating JSONDatabase. Workload at: ./tune_tmp/database_workload.json. Tuning records at: ./tune_tmp/database_tuning_record.json
+2022-08-23 05:29:03.045 INFO LocalBuilder: max_workers = 32
+2022-08-23 05:29:03.777 INFO LocalRunner: max_workers = 1
+2022-08-23 05:29:04.386 INFO Initializing Task #0: "main"
+2022-08-23 05:29:04.450 INFO 
+ ID | Name |    FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Terminated 
+------------------------------------------------------------------------------------------------------------
+  0 | main | 4194304 |      1 |            N/A |          N/A |                   N/A |      0 |            
+------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2022-08-23 05:29:04.450 INFO Scheduler picks Task #0: "main"
+2022-08-23 05:29:06.911 INFO Sending 5 sample(s) to builder
+2022-08-23 05:29:07.721 INFO Sending 5 sample(s) to runner
+2022-08-23 05:29:36.861 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:29:36.862 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 05:29:36.862 INFO Working directory: ./tune_tmp
+2022-08-23 05:29:36.862 INFO Creating JSONDatabase. Workload at: ./tune_tmp/database_workload.json. Tuning records at: ./tune_tmp/database_tuning_record.json
+2022-08-23 05:29:36.886 INFO LocalBuilder: max_workers = 32
+2022-08-23 05:29:37.468 INFO LocalRunner: max_workers = 1
+2022-08-23 05:29:37.982 INFO Initializing Task #0: "main"
+2022-08-23 05:29:38.052 INFO 
+ ID | Name |    FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Terminated 
+------------------------------------------------------------------------------------------------------------
+  0 | main | 4194304 |      1 |            N/A |          N/A |                   N/A |      0 |            
+------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2022-08-23 05:29:38.052 INFO Scheduler picks Task #0: "main"
+2022-08-23 05:29:42.958 INFO Sending 64 sample(s) to builder
+2022-08-23 05:29:48.832 INFO Sending 64 sample(s) to runner
+2022-08-23 13:14:34.949 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 13:14:34.950 INFO Logging directory: ./tune_tmp/logs
+2022-08-23 13:14:34.950 INFO Working directory: ./tune_tmp
+2022-08-23 13:14:34.950 INFO Creating JSONDatabase. Workload at: ./tune_tmp/database_workload.json. Tuning records at: ./tune_tmp/database_tuning_record.json
+2022-08-23 13:14:35.006 INFO LocalBuilder: max_workers = 32
+2022-08-23 13:14:35.611 INFO LocalRunner: max_workers = 1
+2022-08-23 13:14:36.216 INFO Initializing Task #0: "main"
+2022-08-23 13:14:36.283 INFO 
+ ID | Name |    FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Terminated 
+------------------------------------------------------------------------------------------------------------
+  0 | main | 4194304 |      1 |            N/A |          N/A |                   N/A |      0 |            
+------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2022-08-23 13:14:36.284 INFO Scheduler picks Task #0: "main"
+2022-08-23 13:14:41.013 INFO Sending 64 sample(s) to builder
+2022-08-23 13:14:51.768 INFO Sending 64 sample(s) to runner
