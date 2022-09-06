@@ -1,0 +1,221 @@
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mmain[39;00m(x: Tensor(([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00mnn[35;01m.[39;00mdense(x, meta[relay[35;01m.[39;00mConstant][[92m0[39m])
+            lv1: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00madd(lv, meta[relay[35;01m.[39;00mConstant][[92m1[39m])
+            lv2: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00mnn[35;01m.[39;00mrelu(lv1)
+            lv3: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00mnn[35;01m.[39;00mdense(lv2, meta[relay[35;01m.[39;00mConstant][[92m2[39m])
+            lv4: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00madd(lv3, meta[relay[35;01m.[39;00mConstant][[92m3[39m])
+            gv: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m lv4
+            R[35;01m.[39;00moutput(gv)
+        [32;01mreturn[39;00m gv
+    
+
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mfused_dense_add0[39;00m(x: Tensor(([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m), w: Tensor(([92m128[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m), b: Tensor(([92m128[39m,), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00mnn[35;01m.[39;00mdense(x, w)
+            gv: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00madd(lv, b)
+            R[35;01m.[39;00moutput(gv)
+        [32;01mreturn[39;00m gv
+    
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mfused_dense_add1[39;00m(x1: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m), w1: Tensor(([92m10[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m), b1: Tensor(([92m10[39m,), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv1: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00mnn[35;01m.[39;00mdense(x1, w1)
+            gv1: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00madd(lv1, b1)
+            R[35;01m.[39;00moutput(gv1)
+        [32;01mreturn[39;00m gv1
+    
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mmain[39;00m(x2: Tensor(([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv11: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m fused_dense_add0(x2, meta[relay[35;01m.[39;00mConstant][[92m0[39m], meta[relay[35;01m.[39;00mConstant][[92m1[39m])
+            lv2: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m relax[35;01m.[39;00mnn[35;01m.[39;00mrelu(lv11)
+            lv4: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m fused_dense_add1(lv2, meta[relay[35;01m.[39;00mConstant][[92m2[39m], meta[relay[35;01m.[39;00mConstant][[92m3[39m])
+            gv2: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m lv4
+            R[35;01m.[39;00moutput(gv2)
+        [32;01mreturn[39;00m gv2
+    
+
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mdense[39;00m(rxplaceholder: T[35;01m.[39;00mBuffer[([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m], rxplaceholder_1: T[35;01m.[39;00mBuffer[([92m128[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m], T_matmul_NT: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mdense[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m, [33m"[39m[33mlayout_free_buffers[39m[33m"[39m: [[92m1[39m]})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i0, i1, i2 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m128[39m, [92m784[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_matmul_NT[39m[33m"[39m):
+                i, j, k [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSSR[39m[33m"[39m, [i0, i1, i2])
+                T[35;01m.[39;00mreads(rxplaceholder[i, k], rxplaceholder_1[j, k])
+                T[35;01m.[39;00mwrites(T_matmul_NT[i, j])
+                [32;01mwith[39;00m T[35;01m.[39;00minit():
+                    T_matmul_NT[i, j] [35;01m=[39;00m T[35;01m.[39;00mfloat32([92m0[39m)
+                T_matmul_NT[i, j] [35;01m=[39;00m T_matmul_NT[i, j] [35;01m+[39;00m rxplaceholder[i, k] [35;01m*[39;00m rxplaceholder_1[j, k]
+    
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mfused_dense_add1[39;00m(x: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m), w: Tensor(([92m10[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m), b: Tensor(([92m10[39m,), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv [35;01m=[39;00m R[35;01m.[39;00mcall_tir(dense1, (x, w), ([92m1[39m, [92m10[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            gv [35;01m=[39;00m R[35;01m.[39;00mcall_tir(add1, (lv, b), ([92m1[39m, [92m10[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            R[35;01m.[39;00moutput(gv)
+        [32;01mreturn[39;00m gv
+    
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mmain[39;00m(x1: Tensor(([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv1: Tensor(([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m fused_dense_add0(x1, meta[relay[35;01m.[39;00mConstant][[92m0[39m], meta[relay[35;01m.[39;00mConstant][[92m1[39m])
+            lv2 [35;01m=[39;00m R[35;01m.[39;00mcall_tir(relu, (lv1,), ([92m1[39m, [92m128[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            lv4: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m fused_dense_add1(lv2, meta[relay[35;01m.[39;00mConstant][[92m2[39m], meta[relay[35;01m.[39;00mConstant][[92m3[39m])
+            gv1: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m lv4
+            R[35;01m.[39;00moutput(gv1)
+        [32;01mreturn[39;00m gv1
+    
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mfused_dense_add0[39;00m(x2: Tensor(([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m), w1: Tensor(([92m128[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m), b1: Tensor(([92m128[39m,), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv3 [35;01m=[39;00m R[35;01m.[39;00mcall_tir(dense, (x2, w1), ([92m1[39m, [92m128[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            gv2 [35;01m=[39;00m R[35;01m.[39;00mcall_tir(add, (lv3, b1), ([92m1[39m, [92m128[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            R[35;01m.[39;00moutput(gv2)
+        [32;01mreturn[39;00m gv2
+    
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mdense1[39;00m(rxplaceholder: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], rxplaceholder_1: T[35;01m.[39;00mBuffer[([92m10[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], T_matmul_NT: T[35;01m.[39;00mBuffer[([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mdense1[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m, [33m"[39m[33mlayout_free_buffers[39m[33m"[39m: [[92m1[39m]})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i0, i1, i2 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m10[39m, [92m128[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_matmul_NT[39m[33m"[39m):
+                i, j, k [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSSR[39m[33m"[39m, [i0, i1, i2])
+                T[35;01m.[39;00mreads(rxplaceholder[i, k], rxplaceholder_1[j, k])
+                T[35;01m.[39;00mwrites(T_matmul_NT[i, j])
+                [32;01mwith[39;00m T[35;01m.[39;00minit():
+                    T_matmul_NT[i, j] [35;01m=[39;00m T[35;01m.[39;00mfloat32([92m0[39m)
+                T_matmul_NT[i, j] [35;01m=[39;00m T_matmul_NT[i, j] [35;01m+[39;00m rxplaceholder[i, k] [35;01m*[39;00m rxplaceholder_1[j, k]
+    
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01madd[39;00m(rxplaceholder: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], rxplaceholder_1: T[35;01m.[39;00mBuffer[[92m128[39m, [33m"[39m[33mfloat32[39m[33m"[39m], T_add: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33madd[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i0, i1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m128[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_add[39m[33m"[39m):
+                ax0, ax1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSS[39m[33m"[39m, [i0, i1])
+                T[35;01m.[39;00mreads(rxplaceholder[ax0, ax1], rxplaceholder_1[ax1])
+                T[35;01m.[39;00mwrites(T_add[ax0, ax1])
+                T_add[ax0, ax1] [35;01m=[39;00m rxplaceholder[ax0, ax1] [35;01m+[39;00m rxplaceholder_1[ax1]
+    
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01madd1[39;00m(rxplaceholder: T[35;01m.[39;00mBuffer[([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m], rxplaceholder_1: T[35;01m.[39;00mBuffer[[92m10[39m, [33m"[39m[33mfloat32[39m[33m"[39m], T_add: T[35;01m.[39;00mBuffer[([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33madd1[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i0, i1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m10[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_add[39m[33m"[39m):
+                ax0, ax1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSS[39m[33m"[39m, [i0, i1])
+                T[35;01m.[39;00mreads(rxplaceholder[ax0, ax1], rxplaceholder_1[ax1])
+                T[35;01m.[39;00mwrites(T_add[ax0, ax1])
+                T_add[ax0, ax1] [35;01m=[39;00m rxplaceholder[ax0, ax1] [35;01m+[39;00m rxplaceholder_1[ax1]
+    
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mrelu[39;00m(rxplaceholder: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], compute: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mrelu[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i0, i1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m128[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mcompute[39m[33m"[39m):
+                i0_1, i1_1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSS[39m[33m"[39m, [i0, i1])
+                T[35;01m.[39;00mreads(rxplaceholder[i0_1, i1_1])
+                T[35;01m.[39;00mwrites(compute[i0_1, i1_1])
+                compute[i0_1, i1_1] [35;01m=[39;00m T[35;01m.[39;00mmax(rxplaceholder[i0_1, i1_1], T[35;01m.[39;00mfloat32([92m0[39m))
+    
+
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mfused_dense_add0[39;00m(x: T[35;01m.[39;00mBuffer[([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m], w: T[35;01m.[39;00mBuffer[([92m128[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m], b: T[35;01m.[39;00mBuffer[[92m128[39m, [33m"[39m[33mfloat32[39m[33m"[39m], T_add: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m, [33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mfused_dense_add0[39m[33m"[39m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        T_matmul_NT [35;01m=[39;00m T[35;01m.[39;00malloc_buffer([[92m1[39m, [92m128[39m], dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+        [32;01mfor[39;00m i0, i1, i2 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m128[39m, [92m784[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_matmul_NT[39m[33m"[39m):
+                i, j, k [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSSR[39m[33m"[39m, [i0, i1, i2])
+                T[35;01m.[39;00mreads(x[i, k], w[j, k])
+                T[35;01m.[39;00mwrites(T_matmul_NT[i, j])
+                [32;01mwith[39;00m T[35;01m.[39;00minit():
+                    T_matmul_NT[i, j] [35;01m=[39;00m T[35;01m.[39;00mfloat32([92m0[39m)
+                T_matmul_NT[i, j] [35;01m=[39;00m T_matmul_NT[i, j] [35;01m+[39;00m x[i, k] [35;01m*[39;00m w[j, k]
+        [32;01mfor[39;00m i0, i1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m128[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_add[39m[33m"[39m):
+                ax0, ax1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSS[39m[33m"[39m, [i0, i1])
+                T[35;01m.[39;00mreads(T_matmul_NT[ax0, ax1], b[ax1])
+                T[35;01m.[39;00mwrites(T_add[ax0, ax1])
+                T_add[ax0, ax1] [35;01m=[39;00m T_matmul_NT[ax0, ax1] [35;01m+[39;00m b[ax1]
+    
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mrelu[39;00m(rxplaceholder: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], compute: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mrelu[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i0, i1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m128[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mcompute[39m[33m"[39m):
+                i0_1, i1_1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSS[39m[33m"[39m, [i0, i1])
+                T[35;01m.[39;00mreads(rxplaceholder[i0_1, i1_1])
+                T[35;01m.[39;00mwrites(compute[i0_1, i1_1])
+                compute[i0_1, i1_1] [35;01m=[39;00m T[35;01m.[39;00mmax(rxplaceholder[i0_1, i1_1], T[35;01m.[39;00mfloat32([92m0[39m))
+    
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mfused_dense_add1[39;00m(x: T[35;01m.[39;00mBuffer[([92m1[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], w: T[35;01m.[39;00mBuffer[([92m10[39m, [92m128[39m), [33m"[39m[33mfloat32[39m[33m"[39m], b: T[35;01m.[39;00mBuffer[[92m10[39m, [33m"[39m[33mfloat32[39m[33m"[39m], T_add: T[35;01m.[39;00mBuffer[([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m, [33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mfused_dense_add1[39m[33m"[39m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        T_matmul_NT [35;01m=[39;00m T[35;01m.[39;00malloc_buffer([[92m1[39m, [92m10[39m], dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+        [32;01mfor[39;00m i0, i1, i2 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m10[39m, [92m128[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_matmul_NT[39m[33m"[39m):
+                i, j, k [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSSR[39m[33m"[39m, [i0, i1, i2])
+                T[35;01m.[39;00mreads(x[i, k], w[j, k])
+                T[35;01m.[39;00mwrites(T_matmul_NT[i, j])
+                [32;01mwith[39;00m T[35;01m.[39;00minit():
+                    T_matmul_NT[i, j] [35;01m=[39;00m T[35;01m.[39;00mfloat32([92m0[39m)
+                T_matmul_NT[i, j] [35;01m=[39;00m T_matmul_NT[i, j] [35;01m+[39;00m x[i, k] [35;01m*[39;00m w[j, k]
+        [32;01mfor[39;00m i0, i1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m1[39m, [92m10[39m):
+            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mT_add[39m[33m"[39m):
+                ax0, ax1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mremap([33m"[39m[33mSS[39m[33m"[39m, [i0, i1])
+                T[35;01m.[39;00mreads(T_matmul_NT[ax0, ax1], b[ax1])
+                T[35;01m.[39;00mwrites(T_add[ax0, ax1])
+                T_add[ax0, ax1] [35;01m=[39;00m T_matmul_NT[ax0, ax1] [35;01m+[39;00m b[ax1]
+    
+    [95;03m@R[39;00m[35;01m.[39;00mfunction
+    [32;01mdef[39;00m [34;01mmain[39;00m(x: Tensor(([92m1[39m, [92m784[39m), [33m"[39m[33mfloat32[39m[33m"[39m)) [35;01m-[39;00m[35;01m>[39;00m Tensor([32;01mNone[39;00m, [33m"[39m[33mfloat32[39m[33m"[39m, ndim [35;01m=[39;00m [92m2[39m):
+        [90;03m# block 0[39;00m
+        [32;01mwith[39;00m R[35;01m.[39;00mdataflow():
+            lv1 [35;01m=[39;00m R[35;01m.[39;00mcall_tir(fused_dense_add0, (x, meta[relay[35;01m.[39;00mConstant][[92m0[39m], meta[relay[35;01m.[39;00mConstant][[92m1[39m]), ([92m1[39m, [92m128[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            lv2 [35;01m=[39;00m R[35;01m.[39;00mcall_tir(relu, (lv1,), ([92m1[39m, [92m128[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            lv4 [35;01m=[39;00m R[35;01m.[39;00mcall_tir(fused_dense_add1, (lv2, meta[relay[35;01m.[39;00mConstant][[92m2[39m], meta[relay[35;01m.[39;00mConstant][[92m3[39m]), ([92m1[39m, [92m10[39m), dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m)
+            gv: Tensor(([92m1[39m, [92m10[39m), [33m"[39m[33mfloat32[39m[33m"[39m) [35;01m=[39;00m lv4
+            R[35;01m.[39;00moutput(gv)
+        [32;01mreturn[39;00m gv
+    
+
+MLPModule Prediction: Coat

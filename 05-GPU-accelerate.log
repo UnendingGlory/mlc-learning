@@ -1,0 +1,113 @@
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mmain[39;00m(A: T[35;01m.[39;00mBuffer[[92m1024[39m, [33m"[39m[33mfloat32[39m[33m"[39m], B: T[35;01m.[39;00mBuffer[[92m1024[39m, [33m"[39m[33mfloat32[39m[33m"[39m], C: T[35;01m.[39;00mBuffer[[92m1024[39m, [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mmain[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        [32;01mfor[39;00m i_0 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m8[39m, thread[35;01m=[39;00m[33m"[39m[33mblockIdx.x[39m[33m"[39m):
+            [32;01mfor[39;00m i_1 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m128[39m, thread[35;01m=[39;00m[33m"[39m[33mthreadIdx.x[39m[33m"[39m):
+                [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mC[39m[33m"[39m):
+                    vi [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, i_0 [35;01m*[39;00m [92m128[39m [35;01m+[39;00m i_1)
+                    T[35;01m.[39;00mreads(A[vi], B[vi])
+                    T[35;01m.[39;00mwrites(C[vi])
+                    C[vi] [35;01m=[39;00m A[vi] [35;01m+[39;00m B[vi]
+    
+
+None
+[0.40674493 0.5723022  0.44989768 ... 0.806817   0.6769853  0.71174556]
+[0.5704391  0.9875654  0.03591833 ... 0.7996842  0.7836726  0.38733852]
+[0.97718406 1.5598676  0.485816   ... 1.6065012  1.4606578  1.0990841 ]
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mmain[39;00m(A: T[35;01m.[39;00mBuffer[[92m1027[39m, [33m"[39m[33mfloat32[39m[33m"[39m], B: T[35;01m.[39;00mBuffer[[92m1024[39m, [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mmain[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        A_shared [35;01m=[39;00m T[35;01m.[39;00malloc_buffer([[92m1027[39m], dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m, scope[35;01m=[39;00m[33m"[39m[33mshared[39m[33m"[39m)
+        [32;01mfor[39;00m i_0 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m8[39m, thread[35;01m=[39;00m[33m"[39m[33mblockIdx.x[39m[33m"[39m):
+            [32;01mfor[39;00m i_1 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m128[39m, thread[35;01m=[39;00m[33m"[39m[33mthreadIdx.x[39m[33m"[39m):
+                [32;01mfor[39;00m ax0 [32;01min[39;00m T[35;01m.[39;00mserial([92m130[39m):
+                    [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mA_shared[39m[33m"[39m):
+                        v0 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1027[39m, i_0 [35;01m*[39;00m [92m128[39m [35;01m+[39;00m ax0)
+                        T[35;01m.[39;00mreads(A[v0])
+                        T[35;01m.[39;00mwrites(A_shared[v0])
+                        A_shared[v0] [35;01m=[39;00m A[v0]
+                [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mC[39m[33m"[39m):
+                    vi [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, i_0 [35;01m*[39;00m [92m128[39m [35;01m+[39;00m i_1)
+                    T[35;01m.[39;00mreads(A_shared[vi : vi [35;01m+[39;00m [92m3[39m])
+                    T[35;01m.[39;00mwrites(B[vi])
+                    B[vi] [35;01m=[39;00m A_shared[vi] [35;01m+[39;00m A_shared[vi [35;01m+[39;00m [92m1[39m] [35;01m+[39;00m A_shared[vi [35;01m+[39;00m [92m2[39m]
+    
+
+None
+
+#ifdef _WIN32
+  using uint = unsigned int;
+  using uchar = unsigned char;
+  using ushort = unsigned short;
+  using int64_t = long long;
+  using uint64_t = unsigned long long;
+#else
+  #define uint unsigned int
+  #define uchar unsigned char
+  #define ushort unsigned short
+  #define int64_t long long
+  #define uint64_t unsigned long long
+#endif
+extern "C" __global__ void __launch_bounds__(128) main_kernel0(float* __restrict__ A, float* __restrict__ B) {
+  __shared__ float A_shared[130];
+  for (int ax0_0 = 0; ax0_0 < 2; ++ax0_0) {
+    if (((ax0_0 * 64) + (((int)threadIdx.x) >> 1)) < 65) {
+      A_shared[((ax0_0 * 128) + ((int)threadIdx.x))] = A[(((((int)blockIdx.x) * 128) + (ax0_0 * 128)) + ((int)threadIdx.x))];
+    }
+  }
+  __syncthreads();
+  B[((((int)blockIdx.x) * 128) + ((int)threadIdx.x))] = ((A_shared[((int)threadIdx.x)] + A_shared[(((int)threadIdx.x) + 1)]) + A_shared[(((int)threadIdx.x) + 2)]);
+}
+
+
+[95;03m@tvm[39;00m[35;01m.[39;00mscript[35;01m.[39;00mir_module
+[32;01mclass[39;00m [34;01mModule[39;00m:
+    [95;03m@T[39;00m[35;01m.[39;00mprim_func
+    [32;01mdef[39;00m [34;01mmain[39;00m(A: T[35;01m.[39;00mBuffer[([92m1024[39m, [92m1024[39m), [33m"[39m[33mfloat32[39m[33m"[39m], B: T[35;01m.[39;00mBuffer[([92m1024[39m, [92m1024[39m), [33m"[39m[33mfloat32[39m[33m"[39m], C: T[35;01m.[39;00mBuffer[([92m1024[39m, [92m1024[39m), [33m"[39m[33mfloat32[39m[33m"[39m]) [35;01m-[39;00m[35;01m>[39;00m [32;01mNone[39;00m:
+        [90;03m# function attr dict[39;00m
+        T[35;01m.[39;00mfunc_attr({[33m"[39m[33mglobal_symbol[39m[33m"[39m: [33m"[39m[33mmain[39m[33m"[39m, [33m"[39m[33mtir.noalias[39m[33m"[39m: [32;01mTrue[39;00m})
+        [90;03m# body[39;00m
+        [90;03m# with T.block("root")[39;00m
+        C_local [35;01m=[39;00m T[35;01m.[39;00malloc_buffer([[92m1024[39m, [92m1024[39m], dtype[35;01m=[39;00m[33m"[39m[33mfloat32[39m[33m"[39m, scope[35;01m=[39;00m[33m"[39m[33mlocal[39m[33m"[39m)
+        [32;01mfor[39;00m i_0 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m16[39m, thread[35;01m=[39;00m[33m"[39m[33mblockIdx.y[39m[33m"[39m):
+            [32;01mfor[39;00m j_0 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m16[39m, thread[35;01m=[39;00m[33m"[39m[33mblockIdx.x[39m[33m"[39m):
+                [32;01mfor[39;00m i_1 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m8[39m, thread[35;01m=[39;00m[33m"[39m[33mthreadIdx.y[39m[33m"[39m):
+                    [32;01mfor[39;00m j_1 [32;01min[39;00m T[35;01m.[39;00mthread_binding([92m8[39m, thread[35;01m=[39;00m[33m"[39m[33mthreadIdx.x[39m[33m"[39m):
+                        [32;01mfor[39;00m i_2_init, j_2_init [32;01min[39;00m T[35;01m.[39;00mgrid([92m8[39m, [92m8[39m):
+                            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mC_init[39m[33m"[39m):
+                                vi [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, i_0 [35;01m*[39;00m [92m64[39m [35;01m+[39;00m i_1 [35;01m*[39;00m [92m8[39m [35;01m+[39;00m i_2_init)
+                                vj [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, j_0 [35;01m*[39;00m [92m64[39m [35;01m+[39;00m j_1 [35;01m*[39;00m [92m8[39m [35;01m+[39;00m j_2_init)
+                                T[35;01m.[39;00mreads()
+                                T[35;01m.[39;00mwrites(C_local[vi, vj])
+                                C_local[vi, vj] [35;01m=[39;00m T[35;01m.[39;00mfloat32([92m0[39m)
+                        [32;01mfor[39;00m k_0 [32;01min[39;00m T[35;01m.[39;00mserial([92m256[39m):
+                            [32;01mfor[39;00m k_1 [32;01min[39;00m T[35;01m.[39;00munroll([92m4[39m):
+                                [32;01mfor[39;00m i_2, j_2 [32;01min[39;00m T[35;01m.[39;00mgrid([92m8[39m, [92m8[39m):
+                                    [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mC_update[39m[33m"[39m):
+                                        vi [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, i_0 [35;01m*[39;00m [92m64[39m [35;01m+[39;00m i_1 [35;01m*[39;00m [92m8[39m [35;01m+[39;00m i_2)
+                                        vj [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, j_0 [35;01m*[39;00m [92m64[39m [35;01m+[39;00m j_1 [35;01m*[39;00m [92m8[39m [35;01m+[39;00m j_2)
+                                        vk [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mreduce([92m1024[39m, k_0 [35;01m*[39;00m [92m4[39m [35;01m+[39;00m k_1)
+                                        T[35;01m.[39;00mreads(C_local[vi, vj], A[vi, vk], B[vk, vj])
+                                        T[35;01m.[39;00mwrites(C_local[vi, vj])
+                                        C_local[vi, vj] [35;01m=[39;00m C_local[vi, vj] [35;01m+[39;00m A[vi, vk] [35;01m*[39;00m B[vk, vj]
+                        [32;01mfor[39;00m ax0, ax1 [32;01min[39;00m T[35;01m.[39;00mgrid([92m8[39m, [92m8[39m):
+                            [32;01mwith[39;00m T[35;01m.[39;00mblock([33m"[39m[33mC_local[39m[33m"[39m):
+                                v0 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, i_0 [35;01m*[39;00m [92m64[39m [35;01m+[39;00m i_1 [35;01m*[39;00m [92m8[39m [35;01m+[39;00m ax0)
+                                v1 [35;01m=[39;00m T[35;01m.[39;00maxis[35;01m.[39;00mspatial([92m1024[39m, j_0 [35;01m*[39;00m [92m64[39m [35;01m+[39;00m j_1 [35;01m*[39;00m [92m8[39m [35;01m+[39;00m ax1)
+                                T[35;01m.[39;00mreads(C_local[v0, v1])
+                                T[35;01m.[39;00mwrites(C[v0, v1])
+                                C[v0, v1] [35;01m=[39;00m C_local[v0, v1]
+    
+
+GEMM-Blocking: 6352.037942 GFLOPS
+GEMM-Blocking: 10891.428484 GFLOPS
